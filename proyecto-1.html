@@ -84,6 +84,11 @@ p.lead { max-width:60ch; color:#CBD1D6; margin:0 0 28px; }
 }
 body.no-sel, body.no-sel * { -webkit-user-select:none !important; user-select:none !important; }
 .ba.dragging { touch-action:none; }
+/* los hijos (la bolita, las etiquetas) deben heredar el mismo gesto que el marco,
+   si no el navegador se queda con el arrastre horizontal */
+.ba * { touch-action:pan-y; }
+.ba.dragging * { touch-action:none; }
+.ba-tag { pointer-events:none; }
 .ba .after { clip-path:inset(0 0 0 var(--split,50%)); }
 .ba-handle {
   position:absolute; top:0; bottom:0; left:var(--split,50%); width:2px;
