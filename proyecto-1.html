@@ -93,9 +93,10 @@ body.no-sel, body.no-sel * { -webkit-user-select:none !important; user-select:no
 .ba-handle {
   position:absolute; top:0; bottom:0; left:var(--split,50%); width:2px;
   background:var(--ice); transform:translateX(-1px);
+  pointer-events:none;   /* la bolita es decorativa: el dedo toca siempre el marco */
 }
 .ba-handle::after {
-  content:""; position:absolute; top:50%; left:50%; width:46px; height:46px;
+  content:""; pointer-events:none; position:absolute; top:50%; left:50%; width:46px; height:46px;
   transform:translate(-50%,-50%); border:2px solid var(--ice); border-radius:50%;
   background:rgba(22,28,36,.35); backdrop-filter:blur(3px);
 }
@@ -472,6 +473,9 @@ const FOTOS = [
     ba.addEventListener(ev, stop));
   window.addEventListener('pointerup', stop);
   ba.addEventListener('dragstart', e => e.preventDefault());
+  ba.addEventListener('touchmove', e => {
+    if (ba.classList.contains('dragging')) e.preventDefault();
+  }, { passive:false });
   ba.addEventListener('selectstart', e => e.preventDefault());
 
   ba.addEventListener('keydown', e => {
